@@ -228,24 +228,6 @@ For image inputs, w will be of shape (num_px $\times$ num_px $\times$ 3, 1).
 
 ### 4.3 - Forward and Backward propagation
 
-Now that your parameters are initialized, you can do the "forward" and "backward" propagation steps for learning the parameters.
-
-**Exercise:** Implement a function `propagate()` that computes the cost function and its gradient.
-
-**Hints**:
-
-Forward Propagation:
-- You get X
-- You compute $A = \sigma(w^T X + b) = (a^{(0)}, a^{(1)}, ..., a^{(m-1)}, a^{(m)})$
-- You calculate the cost function: $J = -\frac{1}{m}\sum_{i=1}^{m}y^{(i)}\log(a^{(i)})+(1-y^{(i)})\log(1-a^{(i)})$
-
-Here are the two formulas you will be using: 
-
-$$ \frac{\partial J}{\partial w} = \frac{1}{m}X(A-Y)^T\tag{7}$$
-$$ \frac{\partial J}{\partial b} = \frac{1}{m} \sum_{i=1}^m (a^{(i)}-y^{(i)})\tag{8}$$
-
-
-```python
 # GRADED FUNCTION: propagate
 
 def propagate(w, b, X, Y):
@@ -326,12 +308,6 @@ print ("cost = " + str(cost))
 
 </table>
 
-### d) Optimization
-- You have initialized your parameters.
-- You are also able to compute a cost function and its gradient.
-- Now, you want to update the parameters using gradient descent.
-
-**Exercise:** Write down the optimization function. The goal is to learn $w$ and $b$ by minimizing the cost function $J$. For a parameter $\theta$, the update rule is $ \theta = \theta - \alpha \text{ } d\theta$, where $\alpha$ is the learning rate.
 
 
 ```python
@@ -419,7 +395,6 @@ print ("db = " + str(grads["db"]))
 
 </table>
 
-**Exercise:** The previous function will output the learned w and b. We are able to use w and b to predict the labels for a dataset X. Implement the `predict()` function. There is two steps to computing predictions:
 
 1. Calculate $\hat{Y} = A = \sigma(w^T X + b)$
 
@@ -486,23 +461,10 @@ print ("predictions = " + str(predict(w, b, X)))
 </table>
 
 
-<font color='blue'>
-**What to remember:**
-You've implemented several functions that:
-- Initialize (w,b)
-- Optimize the loss iteratively to learn parameters (w,b):
-    - computing the cost and its gradient 
-    - updating the parameters using gradient descent
-- Use the learned (w,b) to predict the labels for a given set of examples
+
 
 ## 5 - Merge all functions into a model ##
 
-You will now see how the overall model is structured by putting together all the building blocks (functions implemented in the previous parts) together, in the right order.
-
-**Exercise:** Implement the model function. Use the following notation:
-    - Y_prediction for your predictions on the test set
-    - Y_prediction_train for your predictions on the train set
-    - w, costs, grads for the outputs of optimize()
 
 
 ```python
@@ -607,9 +569,6 @@ d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations = 200
 
 
 
-**Comment**: Training accuracy is close to 100%. This is a good sanity check: your model is working and has high enough capacity to fit the training data. Test error is 68%. It is actually not bad for this simple model, given the small dataset we used and that logistic regression is a linear classifier. But no worries, you'll build an even better classifier next week!
-
-Also, you see that the model is clearly overfitting the training data. Later in this specialization you will learn how to reduce overfitting, for example by using regularization. Using the code below (and changing the `index` variable) you can look at predictions on pictures of the test set.
 
 
 ```python
@@ -646,12 +605,11 @@ plt.show()
 ![png](output_46_0.png)
 
 
-**Interpretation**:
-You can see the cost decreasing. It shows that the parameters are being learned. However, you see that you could train the model even more on the training set. Try to increase the number of iterations in the cell above and rerun the cells. You might see that the training set accuracy goes up, but the test set accuracy goes down. This is called overfitting. 
+
 
 ## 6 - Further analysis (optional/ungraded exercise) ##
 
-Congratulations on building your first image classification model. Let's analyze it further, and examine possible choices for the learning rate $\alpha$. 
+
 
 #### Choice of learning rate ####
 
@@ -705,22 +663,9 @@ plt.show()
 ![png](output_50_1.png)
 
 
-**Interpretation**: 
-- Different learning rates give different costs and thus different predictions results.
-- If the learning rate is too large (0.01), the cost may oscillate up and down. It may even diverge (though in this example, using 0.01 still eventually ends up at a good value for the cost). 
-- A lower cost doesn't mean a better model. You have to check if there is possibly overfitting. It happens when the training accuracy is a lot higher than the test accuracy.
-- In deep learning, we usually recommend that you: 
-    - Choose the learning rate that better minimizes the cost function.
-    - If your model overfits, use other techniques to reduce overfitting. (We'll talk about this in later videos.) 
 
 
 ## 7 - Test with your own image (optional/ungraded exercise) ##
-
-Congratulations on finishing this assignment. You can use your own image and see the output of your model. To do that:
-    1. Click on "File" in the upper bar of this notebook, then click "Open" to go on your Coursera Hub.
-    2. Add your image to this Jupyter Notebook's directory, in the "images" folder
-    3. Change your image's name in the following code
-    4. Run the code and check if the algorithm is right (1 = cat, 0 = non-cat)!
 
 
 ```python
